@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Product Cart{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/cart.css') }}">
+	
+{% endblock %}
+{% block body %}
+
+ {% block javascripts %}
+           {{ parent() }}
+    {{ encore_entry_script_tags('cart') }}
+        {% endblock %}
+
+<div class="container-fluid" id="container">
+	    <div class="row">
+	        <aside class="col-lg-9">
+	            <div class="card">
+	                <div class="table-responsive">
+	                    <table id="prod_cart_table" class="table table-borderless table-shopping-cart">
+	                        <thead class="text-muted">
+	                            <tr class="small text-uppercase">
+	                                <th scope="col">Product</th>
+	                                <th scope="col" width="120">Quantity</th>
+	                                <th scope="col" width="120">Price</th>
+	                                <th scope="col" class="text-right d-none d-md-block" width="200"></th>
+	                            </tr>
+	                        </thead>
+	                        <tbody id="cart" >
+							{% if cart_data %}
+							
+							{% for cart in cart_data%}
+							
+	                            <tr id="{{cart.productId}}">
+	                                <td>
+	                                    <figure class="itemside align-items-center">
+	                                        <div class="aside"><img src="{{ asset('uploads/brochures/' ~ cart.ImageName) }}" class="img-sm"></div>
+	                                        <figcaption class="info"> <a href="#" class="title text-dark" data-abc="true">{{cart.ProductName}}</a>
+	                                           
+	                                        </figcaption>
+	                                    </figure>
+	                                </td>
+	                                <td> <select class="form-control update_qty_update" id="prod_qty_{{cart.productId}}"  name="cart_product_quantity">
+	                                        <option value="1" >1</option>
+	                                        <option value="2">2</option>
+	                                        <option value="3" >3</option>
+	                                        <option value="4">4</option>
+											<option value="5">5</option>
+	                                    </select> </td>
+	                                <td>
+	                                    <div class="price-wrap"> <var class="price">${{cart.price}} </var> </div>
+	                                </td>
+	                                <td class="text-right d-none d-md-block">  <button id="{{cart.productId}}" class="btn-primary update_qty"  > Remove</button> </td>
+	                            </tr>
+								{% endfor %}
+	                           {% endif %}
+	                       
+	                        </tbody>
+	                    </table>
+	                </div>
+	            </div>
+	        </aside>
+	        <aside class="col-lg-3">
+	            
+	            <div class="card">
+	                <div class="card-body">
+	                    <dl class="dlist-align">
+	                        <dt>Total price:</dt>
+	                        <dd id="cart_price_total" class="text-right ml-3">${{total}}</dd>
+	                    </dl>
+	                   
+	                    <hr> <a href="{{ path('app_checkout')}}" class="btn btn-out btn-primary btn-square btn-main" data-abc="true"> Make Purchase </a> <a href="{{path('app_product_list')}}" class="btn btn-out btn-success btn-square btn-main mt-2" data-abc="true">Continue Shopping</a>
+	                </div>
+	            </div>
+	        </aside>
+	    </div>
+	</div>
+{% endblock %}

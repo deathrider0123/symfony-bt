@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Shipping{% endblock %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('product_details') }}
+{% endblock %}
+
+{% block javascripts %}
+            {{ encore_entry_script_tags('file') }}
+        {% endblock %}
+{% block body %}
+
+
+<h3 class="titlecls mt-5 text-center" > Add Shipping</h3>
+<div class="container">
+
+
+{{ form_start(form) }}
+{{ form_errors(form) }}
+    {# ... #}
+
+    {{ form_row(form.mobile_number) }}
+	
+{{ form_end(form) }}
+</div>
+{% endblock%}
